@@ -1,33 +1,32 @@
-import { log } from 'console'
-import Link from 'next/link'
-import { FC } from 'react'
-import { FaStar, FaCodeBranch, FaEye } from "react-icons/fa"
+import Link from "next/link";
+import { FC } from "react";
+import { FaStar, FaCodeBranch, FaEye } from "react-icons/fa";
 
-type ReposPageProps = {}
+type ReposPageProps = {};
 async function fetchRepos() {
-    const res: Response = await fetch('https://api.github.com/users/luan-brav0/repos')
-    const repos = await res.json()
-    return repos;
+  const res: Response = await fetch(
+    "https://api.github.com/users/luan-brav0/repos"
+  );
+  const repos = await res.json();
+  return repos;
 }
 
 const ReposPage: FC<ReposPageProps> = (props) => {
-    const repos  = await fetchRepos()
-    console.log(repos)
+  const repos = await fetchRepos();
+  console.log(repos);
 
-    return (
-        <div id="repositories">
-            <h2>Repositories</h2>
-            {repos.map((repo: typeof repos[0]) => {
-                return(<li>
-                    <Link href={repo.id}></Link>
-                </li>
+  return (
+    <div id="repositories">
+      <h2>Repositories</h2>
+      {repos.map((repo: (typeof repos)[0]) => {
+        return (
+          <li key={repo.Id}>
+            <Link href={repo.Id}></Link>
+          </li>
+        );
+      })}
+    </div>
+  );
+};
 
-                )
-            })
-        }
-            
-        </div>
-    )
-}
-
-export default ReposPage
+export default ReposPage;
